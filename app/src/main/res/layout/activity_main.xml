@@ -22,5 +22,6 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btnParse"
-        android:layout_alignParentRight="@id/btnParse" />
+        android:layout_alignParentRight="@id/btnParse"
+        android:visibility="invisible" />
 </RelativeLayout>
