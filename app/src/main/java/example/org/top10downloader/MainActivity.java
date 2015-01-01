@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -15,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -36,7 +38,13 @@ public class MainActivity extends ActionBarActivity {
                 ParseApplications parseApplications = new ParseApplications(xmlData);
                 boolean operationStatus = parseApplications.process();
                 if (operationStatus) {
+                    ArrayList<Application> applications = parseApplications.getApplications();
+                    ArrayAdapter<Application> adapter = new ArrayAdapter<Application>(
+                            MainActivity.this, R.layout.list_item, applications);
                     listApps.setVisibility(View.VISIBLE);
+                    listApps.setAdapter(adapter);
+                } else {
+                    Log.d("MainActivity", "Error parsing file");
                 }
             }
         });
