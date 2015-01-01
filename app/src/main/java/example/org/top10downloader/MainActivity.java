@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import org.apache.http.params.HttpParams;
+import android.widget.Button;
+import android.widget.ListView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,15 +17,16 @@ import java.net.URL;
 
 
 public class MainActivity extends ActionBarActivity {
-
-    TextView textView;
+    Button btnParse;
+    ListView listApps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.textView);
+        btnParse = (Button) findViewById(R.id.btnParse);
+        listApps = (ListView) findViewById(R.id.listApps);
 
         new DownloadData().execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml");
     }
@@ -67,7 +67,6 @@ public class MainActivity extends ActionBarActivity {
 
         protected void onPostExecute(String result) {
             Log.d("OnPostExecute", mXmlData);
-            textView.setText(mXmlData);
         }
 
         private String downloadXML(String theUrl) throws IOException {
