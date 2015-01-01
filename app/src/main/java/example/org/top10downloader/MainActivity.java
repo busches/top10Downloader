@@ -20,6 +20,7 @@ import java.net.URL;
 public class MainActivity extends ActionBarActivity {
     Button btnParse;
     ListView listApps;
+    String xmlData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,11 @@ public class MainActivity extends ActionBarActivity {
         btnParse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listApps.setVisibility(View.VISIBLE);
+                ParseApplications parseApplications = new ParseApplications(xmlData);
+                boolean operationStatus = parseApplications.process();
+                if (operationStatus) {
+                    listApps.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -75,6 +80,7 @@ public class MainActivity extends ActionBarActivity {
 
         protected void onPostExecute(String result) {
             Log.d("OnPostExecute", mXmlData);
+            xmlData = mXmlData;
         }
 
         private String downloadXML(String theUrl) throws IOException {
